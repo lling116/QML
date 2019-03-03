@@ -1,0 +1,63 @@
+                    qml事件处理
+
+1.qml 事件处理机制依然是信号和槽；
+
+2.信号处理器：
+   格式：on<Signal>：匿名函数
+   语法：ECMASript
+   比如： onClicked:{
+        Qt.quit();
+    }
+   说明：当组件触发clicked信号，应用退出
+   
+ 3.附加信号处理器：
+    格式：<AttachingType>on<Signal>：匿名函数；
+    语法：ECMASript
+    比如： Keys.onEscapePressed:{
+        Qt.quit();
+    }
+   说明：当按下Esc键，应用退出
+
+4.   Component的附加信号
+     completed():组件加载完成
+	 destruction()：组件销毁
+
+5.Connections
+   格式：Connections{
+       target:id;
+	   on<Signal>:匿名函数；
+   }
+   作用：把多个对象连接到一个QML信号上；在发出信号的对象
+   之外进行连接！
+   例如：connectios.qml当我们点击按钮可以同时改变两个组件的颜色
+   
+6.自定义信号：
+    语法：signal<name>[([<type><parameter name>[,..]])]
+	参考例子：mysignal.qml,在分析例子之前还有一点要说：
+那就是Loader:
+    他可以使用source属性加载一个QML文档，也可以用sourceComponent属性
+加载一个组件Component：当你需要延迟一些对象知道需要才创建时，Loader
+非常有用！source和sourceComponent属性发生变化，它之前加载的Component
+对象会自动销毁，新对象被加载；把他们的属性设为空字符串或者undefined
+将会销毁对象！相关资源被释放！
+
+    loader的item属性指向它加载的组件顶层Item:
+Loader{
+        id: blueLoader;
+        anchors.left: redLoader.right;
+        anchors.leftMargin: 4;
+        anchors.bottom: parent.bottom;
+        anchors.bottomMargin: 4;
+        sourceComponent: colorComponent;
+        onLoaded:{
+            item.color = "blue"; //把id为blueLoader组件的颜色设置为blue
+        }
+}
+
+好了知道Loader是干什么的了，那我们继续说自定义信号了；在mysignal.qml
+signal colorPicked(color clr);//自定义信号，当鼠标按下会触发！
+Connections连接信号和信号处理器onColorPicked：
+  
+	
+
+   

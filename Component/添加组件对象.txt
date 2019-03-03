@@ -1,0 +1,21 @@
+                    QML动态创建组件
+1.回顾js怎操作DOM的：
+<div id="div1">
+<p id="p1">这是一个段落</p>
+<p id="p2">这是另一个段落</p>
+</div>
+
+<script>
+var para=document.createElement("p");
+var node=document.createTextNode("这是新段落。");
+para.appendChild(node);
+
+var element=document.getElementById("div1");
+element.appendChild(para);
+</script>
+
+2.QML创建组件
+主要是qt.createQmlObject和qt.createComponent方法创建对象，他们可以在运行中
+创建对象；
+Component.createObject创建组件实例
+   他们的具体用参考法：addCompoent.qml
